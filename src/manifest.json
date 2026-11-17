@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "RO Survivors Auto Picker",
+  "version": "4.2.0",
+  "description": "Automatically picks skill/item cards in RO Survivors, rolls on party loot and optionally keeps the hero moving.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["storage", "debugger"],
+  "background": {
+    "service_worker": "input.js"
+  },
+  "host_permissions": [
+    "https://ro-survivors.com/*",
+    "https://*.ro-survivors.com/*",
+    "http://localhost/*",
+    "file:///*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ro-survivors.com/*",
+        "https://*.ro-survivors.com/*",
+        "http://localhost/*",
+        "file:///*"
+      ],
+      "js": ["data.js", "autopick.js"],
+      "css": ["autopick.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://ro-survivors.com/*",
+        "https://*.ro-survivors.com/*",
+        "http://localhost/*",
+        "file:///*"
+      ],
+      "js": ["gamedata.js"],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    }
+  ]
+}
